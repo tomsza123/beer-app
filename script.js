@@ -2,6 +2,7 @@ const apiurl =  "https://api.punkapi.com/v2/beers/ ";
 var request = new XMLHttpRequest();
 request.open('GET', apiurl, true);
 
+
 function removeDuplicates(tab)//do przejrzenia
 {
     //pętla usuwająca powtarzające się dania zebrane z piw(tab musi byc posortowana)
@@ -30,12 +31,16 @@ function findBeer(food)
                 {
                     if(beer.food_pairing[i] == food)
                     {
-                        console.log(beer.name);
-                        console.log(beer.id)
+                        //console.log(beer.name);
+                        //console.log(beer.id)
+                        document.getElementById('beerdiv').innerHTML = beer.name;
+
+                        document.getElementById('beerdiv').innerHTML = '<img src="'+beer.image_url+'" height="420" width="120">'
+
                     }
                 }
             })
-        } 
+        }
         else 
         {
             console.log('error')
@@ -67,8 +72,6 @@ request.onload = function()
     {
         console.log('error')
     }
- 
-
     function putToHtml(tab)
     {
         var test = document.getElementById('testdiv');
@@ -80,15 +83,12 @@ request.onload = function()
             var tr = document.createElement('tr');
             tr.innerHTML = tab[i];
             tr.setAttribute( 'onclick', 'findBeer("'+tab[i]+'")');
-            //tr.setAttribute( 'onclick', 'findBeer()');
-            //tr.setAttribute('value',tab[i]);
             table.appendChild(tr);
         }
         test.appendChild(table)
     }
     
     putToHtml(food_tab);
-    //findBeer("Yuzu cheesecake");
 }
 request.send();
 
