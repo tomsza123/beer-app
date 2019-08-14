@@ -17,6 +17,7 @@ function removeDuplicates(tab)//do przejrzenia
     }
 }
 
+
 function findBeer(food)
 {
     request.open('GET', apiurl, true);
@@ -31,12 +32,49 @@ function findBeer(food)
                 {
                     if(beer.food_pairing[i] == food)
                     {
-                        //console.log(beer.name);
-                        //console.log(beer.id)
-                        document.getElementById('beerdiv').innerHTML = beer.name;
+                        //document.getElementById('modal').style.display = '';
+                        var modal = document.getElementById("modal_cont"); 
 
-                        document.getElementById('beerdiv').innerHTML = '<img src="'+beer.image_url+'" height="420" width="120">'
+                        var div = document.createElement('div');
+                        div.setAttribute("id", "modal");
 
+                        var beer_name = document.createElement('div');
+                        beer_name.setAttribute("id", "beer_name");
+
+                        var close = document.createElement('button');
+                        close.setAttribute("id", "close");
+                        close.setAttribute("onclick", "document.getElementById('modal').style.display = 'none'");
+                        //close.setAttribute("onclick", "closemodal()");
+                        close.innerHTML = '&#10005;'
+
+                        var img = document.createElement('div');
+                        img.setAttribute("id", "img");
+
+                        var description = document.createElement('div');
+                        description.setAttribute("id", "description");
+                        
+                        img.innerHTML = '<img src="'+beer.image_url+'">';
+                        beer_name.innerHTML = beer.name;
+                        description.innerHTML = beer.description;
+
+                        
+                        modal.appendChild(div);
+                        div.appendChild(close);
+                        div.appendChild(beer_name);
+                        div.appendChild(img);
+                        div.appendChild(description);
+
+                        document.getElementById("container").style.backgroundColor = "black";
+
+                        document.getElementById("container").style.opacity = "0.7";
+
+                        //akcja do zamkniecia popupu
+                        
+                        function closemodal()
+                        {
+                            //document.getElementById(modal).style.display = 'none';
+                            console.log="działa";
+                        } 
                     }
                 }
             })
@@ -48,6 +86,8 @@ function findBeer(food)
     }
     request.send();
 }
+
+
 
 request.onload = function() 
 {
@@ -90,6 +130,9 @@ request.onload = function()
     
     putToHtml(food_tab);
 }
+
 request.send();
+
+
 
 
