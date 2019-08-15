@@ -33,18 +33,18 @@ function findBeer(food)
                 {
                     if(beer.food_pairing[i] == food)
                     {
-                        
-                        var modal = document.getElementById("modal_cont"); 
+                        var modal = document.getElementById("modal_cont");
 
                         var div = document.createElement('div');
                         div.setAttribute("id", "modal");
+                        //getElementById("container").style.hover=""
 
                         var beer_name = document.createElement('div');
                         beer_name.setAttribute("id", "beer_name");
 
                         var close = document.createElement('button');
                         close.setAttribute("id", "close");
-                        close.setAttribute("onclick", 'document.getElementById("modal").remove();document.getElementById("container").style.backgroundColor="";document.getElementById("container").style.opacity="";');
+                        close.setAttribute("onclick", 'document.getElementById("modal").remove();document.getElementById("container").style.backgroundColor="";document.getElementById("container").style.opacity="";                        document.getElementsByTagName("table")[0].style="pointer-events: auto";                document.getElementsByTagName("body")[0].style.backgroundColor = "";');
                         
                         close.innerHTML = '&#10005;'
 
@@ -53,29 +53,31 @@ function findBeer(food)
 
                         var description = document.createElement('div');
                         description.setAttribute("id", "description");
-                        
-                        img.innerHTML = '<img src="'+beer.image_url+'">';
-                        beer_name.innerHTML = beer.name;
-                        description.innerHTML = beer.description;
+
+                        var food_title = document.createElement('div');
+                        food_title.setAttribute("id", "food_title");
 
                         
+                        img.innerHTML = '<img src="'+beer.image_url+'">';
+
+                        beer_name.innerHTML = beer.name;
+                        description.innerHTML = '<p>'+beer.description+'</p>';
+
+                        food_title.innerHTML = food;
+
+                        //console.log(beer.ingredients.hops["name"]);
+
                         modal.appendChild(div);
+                        div.appendChild(food_title);
                         div.appendChild(close);
                         div.appendChild(beer_name);
                         div.appendChild(img);
                         div.appendChild(description);
-
-                        document.getElementById("container").style.backgroundColor = "black";
-
-                        document.getElementById("container").style.opacity = "0.7";
-
-                        //akcja do zamkniecia popupu
                         
-                        function closemodal()
-                        {
-                            //document.getElementById(modal).style.display = 'none';
-                            console.log="działa";
-                        } 
+
+                        document.getElementsByTagName("table")[0].style="pointer-events: none;";
+
+                        document.getElementsByTagName("body")[0].style.backgroundColor = "rgba(0,0,0,.5)";
                     }
                 }
             })
@@ -87,8 +89,6 @@ function findBeer(food)
     }
     request.send();
 }
-
-
 
 request.onload = function() 
 {
@@ -117,14 +117,17 @@ request.onload = function()
     {
         var test = document.getElementById('testdiv');
         var table = document.createElement('table');
+        var tr = document.createElement('tr');
         
+        table.appendChild(tr);
        
         for(var i=0;i<tab.length;i++)
         {
-            var tr = document.createElement('tr');
-            tr.innerHTML = tab[i];
-            tr.setAttribute( 'onclick', 'findBeer("'+tab[i]+'")');
-            table.appendChild(tr);
+            
+            var td = document.createElement('td');
+            td.innerHTML = tab[i];
+            td.setAttribute( 'onclick', 'findBeer("'+tab[i]+'")');
+            tr.appendChild(td);
         }
         test.appendChild(table)
     }
