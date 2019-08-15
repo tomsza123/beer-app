@@ -21,6 +21,7 @@ function removeDuplicates(tab)//do przejrzenia
 function findBeer(food)
 {
     request.open('GET', apiurl, true);
+    
     request.onload = function() 
     {
         var data = JSON.parse(this.response)
@@ -32,7 +33,7 @@ function findBeer(food)
                 {
                     if(beer.food_pairing[i] == food)
                     {
-                        //document.getElementById('modal').style.display = '';
+                        
                         var modal = document.getElementById("modal_cont"); 
 
                         var div = document.createElement('div');
@@ -43,8 +44,8 @@ function findBeer(food)
 
                         var close = document.createElement('button');
                         close.setAttribute("id", "close");
-                        close.setAttribute("onclick", "document.getElementById('modal').style.display = 'none'");
-                        //close.setAttribute("onclick", "closemodal()");
+                        close.setAttribute("onclick", 'document.getElementById("modal").remove();document.getElementById("container").style.backgroundColor="";document.getElementById("container").style.opacity="";');
+                        
                         close.innerHTML = '&#10005;'
 
                         var img = document.createElement('div');
