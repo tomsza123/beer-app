@@ -2,7 +2,7 @@ const apiurl =  "https://api.punkapi.com/v2/beers/ ";
 var request = new XMLHttpRequest();
 request.open('GET', apiurl, true);
 
-
+/* 
 function removeDuplicates(tab)//do przejrzenia
 {
     //pętla usuwająca powtarzające się dania zebrane z piw(tab musi byc posortowana)
@@ -16,8 +16,7 @@ function removeDuplicates(tab)//do przejrzenia
         }
     }
 }
-
-
+ */
 function findBeer(food)
 {
     request.open('GET', apiurl, true);
@@ -37,7 +36,6 @@ function findBeer(food)
 
                         var div = document.createElement('div');
                         div.setAttribute("id", "modal");
-                        //getElementById("container").style.hover=""
 
                         var beer_name = document.createElement('div');
                         beer_name.setAttribute("id", "beer_name");
@@ -65,8 +63,6 @@ function findBeer(food)
 
                         food_title.innerHTML = food;
 
-                        //console.log(beer.ingredients.hops["name"]);
-
                         modal.appendChild(div);
                         div.appendChild(food_title);
                         div.appendChild(close);
@@ -78,6 +74,35 @@ function findBeer(food)
                         document.getElementsByTagName("table")[0].style="pointer-events: none;";
 
                         document.getElementsByTagName("body")[0].style.backgroundColor = "rgba(0,0,0,.5)";
+
+                        /*ingredients list*/
+                        var ingr = document.createElement('div');
+                        ingr.setAttribute("id", "ingr");
+
+                        var malt = beer.ingredients.malt;
+                        var hops = beer.ingredients.hops; 
+
+                        ingr.innerHTML = '<b>Ingredients list:</b><br>'
+                        ingr.innerHTML += '<b>Malt:</b><br>'
+
+                        malt.forEach(function(element, index, array)
+                        {
+                            var num = index+1;
+                            ingr.innerHTML += '<p>' + num +'. '+ beer.ingredients.malt[index].name+ ' - ' + beer.ingredients.malt[index].amount.value + " " +beer.ingredients.malt[index].amount.unit + '</p>';
+                        })
+                        ingr.innerHTML += '<b>Hops:</b><br>'
+                        hops.forEach(function(element, index, array)
+                        {
+                            var num = index+1;
+
+                            ingr.innerHTML += '<p>' + num +'. '+ beer.ingredients.hops[index].name+ ' - ' + beer.ingredients.hops[index].amount.value + " " +beer.ingredients.hops[index].amount.unit + '</p>';
+                            
+                            ingr.innerHTML += '<b>add</b> - '+beer.ingredients.hops[index].add + "</br><b>attribute</b> - " + beer.ingredients.hops[index].attribute+'</p>';
+
+                        })
+                        ingr.innerHTML += '<p><b>Yeast</b> - '+beer.ingredients.yeast;
+
+                        div.appendChild(ingr);
                     }
                 }
             })
@@ -105,7 +130,6 @@ request.onload = function()
             for(var i=0;i<beer.food_pairing.length;i++)
             {
                 food_tab.push(beer.food_pairing[i]);
-                //food_tab.push(beer.food_pairing[i]);
             }
         })
     } 
@@ -123,7 +147,6 @@ request.onload = function()
        
         for(var i=0;i<tab.length;i++)
         {
-            
             var td = document.createElement('td');
             td.innerHTML = tab[i];
             td.setAttribute( 'onclick', 'findBeer("'+tab[i]+'")');
@@ -131,10 +154,8 @@ request.onload = function()
         }
         test.appendChild(table)
     }
-    
     putToHtml(food_tab);
 }
-
 request.send();
 
 

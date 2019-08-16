@@ -16,7 +16,6 @@ table
 }
 td
 {
-    /* border-collapse: collapse; */
     text-align:center;
     margin-top:10px;
     background-color: rgb(240,192,48);
@@ -34,7 +33,6 @@ td.right
 }
 td:hover
 {
-    /* height:60px; */
     transition-duration: 0.4s;
     
     background-color:rgb(216,144,24);
@@ -68,10 +66,14 @@ td:hover
         background-color:rgb(216,144,24);
         color: white;
         cursor: pointer;
-        text-shadow: /* 2px 4px 10px black; */ 0;
+        
         font-size: 1rem;
         padding-top:11px;
         padding-bottom:5px;
+    }
+    #ingr
+    {
+        overflow: visible;
     }
 }
 #modal
@@ -98,6 +100,8 @@ td:hover
     text-align: center;
     font-weight: bold;
     font-size: 1.5rem;
+    float:left;
+    width: 100%;
 }
 #close
 {
@@ -113,8 +117,15 @@ img
 {
     background-color: white;    
     padding: 30px;
-    max-width:30%;
     height:25rem;
+    
+    z-index:2;
+    position: sticky;
+    
+}
+#img
+{
+    height:100%;
     float:left;
 }
 #container
@@ -122,8 +133,7 @@ img
     padding-top: 45px;
     margin-left: auto;
     margin-right: auto;
-    width: 30em
-    width: 80%
+    width: 80%;
 }
 #title
 {
@@ -145,4 +155,13 @@ img
     padding-bottom: 10px;
     border-bottom: 1px solid black;
 }
-
+#description
+{
+    padding-left:30%;
+}
+#ingr
+{
+    padding-left:10%;
+    overflow: scroll;
+    height: 50%;
+}
